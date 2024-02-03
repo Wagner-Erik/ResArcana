@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="Build" name="Build the project for distribution" basedir="../">
+
+	<property name="distfile" value="resarcana-client-alpha-3-1-1.jar" />
+
+	<target name="Build">
+
+		<!-- Alte Build-Dateien löschen -->
+		<delete>
+			<fileset dir="bin" />
+		</delete>
+
+		<!-- Den Ordner src kompilieren -->
+		<javac includeantruntime="false" srcdir="src" destdir="bin">
+			<classpath>
+				<pathelement path="lib/slick/slick.jar" />
+				<pathelement path="lib/lwjgl/lwjgl.jar" />
+				<pathelement path="lib/jorbis/jorbis-0.0.17-1.jar" />
+			</classpath>
+		</javac>
+
+		<!-- Archiv packen -->
+		<jar destfile="dist/${distfile}" filesetmanifest="mergewithoutmain" compress="true">
+
+			<!-- Manifest mit SplashScreen -->
+			<manifest>
+				<attribute name="Main-Class" value="resarcana.game.ResArcanaLauncher" />
+				<attribute name="Class-Path" value="." />
+				<attribute name="SplashScreen-Image" value="cover.png" />
+			</manifest>
+
+			<!-- Lizenz -->
+			<metainf dir="./licenses/">
+				<include name="LICENSE" />
+				<include name="EnchantedLand_license.txt" />
+			</metainf>
+
+			<!-- TODO: Include third party licenses
+			<metainf dir="lib/slick">
+				<include name="slick-license.txt" />
+			</metainf>
+			<metainf dir="lib/lwjgl">
+				<include name="lwjgl-license.txt" />
+			</metainf>
+			<metainf dir="lib/jorbis">
+				<include name="jorbis-license.txt" />
+			</metainf> -->
+
+			<!-- Programm -->
+			<fileset dir="bin" />
+			<fileset dir="cover" />
+			<!--<fileset dir="resources" />-->
+
+			<!-- Native Bibliotheken -->
+			<fileset dir="lib/lwjgl/native" />
+
+			<!-- Java Bibliotheken -->
+			<zipfileset excludes="META-INF/*.SF" src="lib/slick/slick.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/lwjgl/lwjgl.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/jorbis/jorbis-0.0.17-1.jar" />
+		</jar>
+	</target>
+</project>

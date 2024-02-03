@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="Build" name="Build the project for distribution" basedir="../">
+
+	<property name="distfile" value="resarcana-server-alpha-3-0.jar" />
+
+	<target name="Build">
+
+		<!-- Alte Build-Dateien löschen -->
+		<delete>
+			<fileset dir="bin" />
+		</delete>
+
+
+		<!-- Den Ordner src kompilieren -->
+		<javac includeantruntime="false" srcdir="src/resarcana/communication" destdir="bin">
+		</javac>
+
+		<!-- Archiv packen -->
+		<jar destfile="dist/${distfile}" filesetmanifest="mergewithoutmain" compress="true">
+
+			<!-- Manifest mit SplashScreen -->
+			<manifest>
+				<attribute name="Main-Class" value="resarcana.communication.ServerLauncher" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+
+			<!-- Lizenz -->
+			<metainf dir=".">
+				<include name="LICENSE" />
+			</metainf>
+
+			<!-- Programm -->
+			<fileset dir="bin" />
+
+			<!-- Native Bibliotheken -->
+
+			<!-- Java Bibliotheken -->
+		</jar>
+	</target>
+</project>

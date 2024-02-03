@@ -1,0 +1,27 @@
+Define all starting parameters for the program by using the equality sign
+
+left side: parameter identifier
+right side: value
+
+White space at the start and end of each side are ignored
+
+directory     = ../resources/
+
+width         = 1920
+height        = 1080
+fullscreen    = True
+targetFPS     = 100
+
+defaultName   = Stratege
+defaultServer = heidegaming.de
+
+verbose       = True
+preloadImages = True
+preloadFonts  = True
+
+artifacts     = All
+places        = All
+monuments     = All
+mages         = All
+items         = All
+scrolls       = All
